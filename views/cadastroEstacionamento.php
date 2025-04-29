@@ -2,34 +2,8 @@
 session_start();
 $title = 'Cadastro de Estacionamento';
 require_once 'header.php';
-
-$mensagem = '';
-$erro = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $veiculo = htmlspecialchars($_POST['veiculo'] ?? '');
-    $local = htmlspecialchars(trim($_POST['local'] ?? ''));
-    $dataHora = htmlspecialchars($_POST['dataHora'] ?? '');
-
-    if (empty($veiculo) || empty($local) || empty($dataHora)) {
-        $erro = "Todos os campos são obrigatórios.";
-    } else {
-       $dataHoraAtual = date('Y-m-d\TH:i');
-        if ($dataHora <= $dataHoraAtual) {
-            $erro = "Não é possível estacionar em datas ou horas passadas.";
-        } else {
-            $mensagem = "Estacionamento cadastrado com sucesso!";
-        }
-    }
-}
-
-$veiculos = [
-    ['id' => 1, 'descricao' => 'Moto - ABC-1234'],
-    ['id' => 2, 'descricao' => 'Carro - DEF-5678'],
-    ['id' => 3, 'descricao' => 'Caminhão - GHI-9012']
-];
-
 ?>
+
 <div class="container-cadastro">
     <h2>Cadastro de Estacionamento</h2>
     <?php if (!empty($mensagem)): ?>
@@ -56,7 +30,33 @@ $veiculos = [
             <label for="dataHora">Data e Hora</label>
             <input type="datetime-local" name="dataHora" id="dataHora" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-outline-success">Cadastrar</button>
+        <div class="form-group mb-3">
+            <label>Duração do Estacionamento</label>
+            <div class="btn-group d-flex" role="group">
+                <input type="radio" class="btn-check" name="duracao" id="duracao30" value="30min" required>
+                <label class="btn btn-outline-success flex-fill" for="duracao30">30min</label>
+
+                <input type="radio" class="btn-check" name="duracao" id="duracao1h" value="1hr" required>
+                <label class="btn btn-outline-success flex-fill" for="duracao1h">1hr</label>
+
+                <input type="radio" class="btn-check" name="duracao" id="duracao1h30" value="1h30min" required>
+                <label class="btn btn-outline-success flex-fill" for="duracao1h30">1h30min</label>
+
+                <input type="radio" class="btn-check" name="duracao" id="duracao2h" value="2hr" required>
+                <label class="btn btn-outline-success flex-fill" for="duracao2h">2hr</label>
+
+                <input type="radio" class="btn-check" name="duracao" id="duracao2h30" value="2h30min" required>
+                <label class="btn btn-outline-success flex-fill" for="duracao2h30">2h30min</label>
+
+                <input type="radio" class="btn-check" name="duracao" id="duracao3h" value="3hr" required>
+                <label class="btn btn-outline-success flex-fill" for="duracao3h">3hr</label>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="estacionadoAte">Estacionado até</label>
+            <span id="estacionadoAte" class="form-control" style="display: block; background-color: #e9ecef;">Será calculado automaticamente</span>
+        </div>
+        <button type="submit" class="btn btn-outline-success">Estacionar</button>
     </form>
 </div>
 <?php require_once 'footer.php'; ?>
