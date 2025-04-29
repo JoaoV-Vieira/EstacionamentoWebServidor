@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     } else {
 
-        header('Location: dashboard.php');
-
+        echo "Tudo certo";
+        header('Location: ../views/home.php');
         exit;
     }
 }

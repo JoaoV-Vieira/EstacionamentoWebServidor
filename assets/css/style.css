@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4b886a;
+    color: white;
+    padding: 5px;
+    height: 2.5%;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 5px;
+    background-color: #4b886a;
+    color: white;
+    position: fixed;
+    bottom: 0;
+}
+
+.container-login, .container-cadastro {
+    width: 30%;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #4b886a;
+    border-radius: 5px;
+    background-color: white;
+}

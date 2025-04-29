@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head><title>Login</title></head>
-<body>
+<?php
+$title = 'Login';
+require_once 'header.php';
+?>
+
+    <div class="container-login">
     <h2>Login</h2>
-    <?php if (!empty($erro)) echo "<p style='color:red;'>$erro</p>"; ?>
-    <form method="POST">
-        Email: <input type="email" name="email" required><br>
-        Senha: <input type="password" name="senha" required><br>
-        <input type="submit" value="Entrar">
-    </form>
-</body>
-</html>
+    <?php if (!empty($erro)) echo "<p class='text-danger'>$erro</p>"; ?>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha:</label>
+                <input type="password" name="senha" id="senha" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Entrar</button>
+        </form>
+    </div>
+
+<?php require_once 'footer.php'; ?>

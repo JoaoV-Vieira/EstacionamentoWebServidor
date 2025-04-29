@@ -1,32 +1,39 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/Conexao.php';
 
 class Usuario {
 
-    public static function autenticar($email, $senha): bool {
+    public static function autenticar($email, $senha) {
+    $sql = "SELECT * FROM usuarios WHERE email = :email";
+    $stmt = Conexao::getConexao()->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
 
-        global $pdo;
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
-        $stmt->execute([$email]);
-        $usuario = $stmt->fetch();
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($usuario && password_verify($senha, $usuario['senha'])) {
-
-            $_SESSION['usuario_id'] = $usuario['id'];
-            return true;
-
-        }
-
+    // Depuração: Verificar se o usuário foi encontrado
+    if (!$usuario) {
+        error_log("Usuário não encontrado para o email: $email");
         return false;
     }
 
-    public static function cadastrar($nome, $email, $senha): bool {
+    // Depuração: Verificar se a senha corresponde ao hash
+    if (!password_verify($senha, $usuario['senha'])) {
+        error_log("Senha incorreta para o email: $email");
+        return false;
+    }
 
-        global $pdo;
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-        $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
-        return $stmt->execute([$nome, $email, $senhaHash]);
+    // Sessão iniciada com sucesso
+    $_SESSION['usuario_id'] = $usuario['id'];
+    $_SESSION['usuario_nome'] = $usuario['nome'];
+    return true;
+}
     
+
+    public static function cadastrar($nome, $email, $senha): bool {
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+        $stmt = Conexao::getConexao()->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
+        return $stmt->execute([$nome, $email, $senhaHash]);
     }
 }
 ?>
