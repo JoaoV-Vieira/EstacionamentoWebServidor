@@ -7,6 +7,6 @@ CREATE TABLE usuarios (
     administrador CHAR(1) NOT NULL DEFAULT 'N'
 );
 
-insert into usuarios (nome, email, senha) values ('SUP', 'sup@sup.com', '$2y$10$Y83/p1hGsytUXueyvDHe1eNDGvfu95brrnkgf5DkLTzyxpGiryoVe')
+insert into usuarios (nome, email, senha, administrador) values ('SUP', 'sup@sup.com', '$2y$10$Y83/p1hGsytUXueyvDHe1eNDGvfu95brrnkgf5DkLTzyxpGiryoVe', 'S')
 
 select * from usuarios;
