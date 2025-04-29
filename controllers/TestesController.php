@@ -1,19 +1,11 @@
 <?php
-$senha = 'minhaSenha123';
+$senha = '123456789';
 $hash = password_hash($senha, PASSWORD_DEFAULT);
 
 if (password_verify('minhaSenha123', $hash)) {
-    echo "Senha válida";
+    echo $hash;
 } else {
-    echo "Senha inválida";
+    echo $hash;
 }
 
 
-require_once '/config/Conexao.php';
-
-try {
-    $conexao = Conexao::getConexao();
-    echo 'Conexão bem-sucedida!';
-} catch (Exception $e) {
-    echo 'Erro: ' . $e->getMessage();
-}
