@@ -1,0 +1,11 @@
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    senha VARCHAR(255)
+);
+
+insert into usuarios (nome, email, senha) values ('Joao', j_vieira.2000@outlook.com', '123456789')
+
+select * from usuarios;
