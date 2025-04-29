@@ -57,6 +57,7 @@ require_once 'header.php';
             <span id="estacionadoAte" class="form-control" style="display: block; background-color: #e9ecef;">Será calculado automaticamente</span>
         </div>
         <button type="submit" class="btn btn-outline-success">Estacionar</button>
+        <a href="home.php" class="btn btn-outline-secondary">Voltar</a>
     </form>
 </div>
 <?php require_once 'footer.php'; ?>

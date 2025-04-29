@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $title = 'Cadastro de Usuario';
 require_once 'header.php';
 ?>
@@ -20,7 +20,14 @@ require_once 'header.php';
                 <label for="senha" class="form-label">Senha:</label>
                 <input type="password" name="senha" id="senha" class="form-control" required>
             </div>
+            <div class="mb-3">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="administrador" name="administrador">
+                <label class="form-check-label" for="administrador">Administrador</label>
+            </div>
+            </div>
             <button type="submit" class="btn btn-outline-success">Cadastrar</button>
+            <a href="home.php" class="btn btn-outline-secondary">Voltar</a>
         </form>
     </div>
 <?php require_once 'footer.php'; ?>

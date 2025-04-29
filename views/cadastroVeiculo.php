@@ -1,5 +1,4 @@
 <?php
-session_start();
 $title = 'Cadastro de Veículo';
 require_once 'header.php';
 ?>
@@ -40,6 +39,7 @@ require_once 'header.php';
             <input type="text" name="placa" id="placa" class="form-control" placeholder="ABC-1234" required>
         </div>
         <button type="submit" class="btn btn-outline-success">Cadastrar</button>
+        <a href="home.php" class="btn btn-outline-secondary">Voltar</a>
     </form>
 </div>
 <?php require_once 'footer.php'; ?>
