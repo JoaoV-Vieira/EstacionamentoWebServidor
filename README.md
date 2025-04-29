@@ -7,7 +7,7 @@ Desenvolvido por João Victor Vieira - RA 2200880 UTFPR-PG
 Projeto de sistema web realizado em aula na Universidade Tecnologica Federal do Parana em Ponta Grossa, desenvolvido em PHP com banco de dados MySQL. 
 O projeto consiste em um sistema simples de estacionamento, contendo o cadastro de usuários, veículos e o estacionamento por si só.
 
-**Observação**: a tela de login ainda **não está funcionando corretamente** e a solução está em andamento.
+**Observação**: a tela de login ainda **não está funcionando corretamente**, solução está em andamento.
 
 ---
 
@@ -22,7 +22,7 @@ O projeto consiste em um sistema simples de estacionamento, contendo o cadastro 
 ### 2. Requisitos de Hardware
 - **Processador**: Dual-core ou superior
 - **Memória RAM**: 2 GB ou mais
-- **Espaço em Disco**: 100 MB (aproximadamente)
+- **Armazenamento**: Aproximadamente 100 MB
 
 ---
 
@@ -44,12 +44,6 @@ O projeto consiste em um sistema simples de estacionamento, contendo o cadastro 
 
 ### 1. Arquivo de Conexão (`Conexao.php`)
 Confirme ou edite as credenciais de acesso:
-```php
-host: 'localhost'
-dbname: 'estacionamento'
-user: 'root'
-password: ''
-```
 
 ---
 
