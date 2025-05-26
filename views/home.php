@@ -62,7 +62,7 @@ require_once 'header.php';
                             <td><?php echo htmlspecialchars($estacionamento->getDuracao()); ?></td>
                             <td><?php echo $estacionamento->calcularEstacionadoAte(); ?></td>
                             <td>
-                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal" 
+                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal"
                                         onclick="preencherFormulario(
                                             <?php echo $estacionamento->getId(); ?>,
                                             <?php echo $estacionamento->getVeiculoId(); ?>,
@@ -70,11 +70,11 @@ require_once 'header.php';
                                             '<?php echo $estacionamento->getDataHora(); ?>',
                                             '<?php echo $estacionamento->getDuracao(); ?>'
                                         )">
-                                    <i class="bi bi-pencil"></i>
+                                    <i class="bi bi-pencil text-white"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#excluirModal" 
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#excluirModal"
                                         onclick="setExcluirId(<?php echo $estacionamento->getId(); ?>)">
-                                    <i class="bi bi-trash"></i>
+                                    <i class="bi bi-trash text-white"></i>
                                 </button>
                             </td>
                         </tr>

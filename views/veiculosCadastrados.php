@@ -14,8 +14,9 @@ require_once 'header.php';
                 <div class="card-body text-center">
                     <h5 class="card-title"><?php echo htmlspecialchars($_SESSION['usuario_nome'] ?? 'Usuário'); ?></h5>
                     <p class="card-text">Bem-vindo!</p>
+                    <a href="/EstacionamentoWebServidor/home" class="btn btn-outline-success w-100 mb-2">Home</a>
                     <div class="dropdown w-100 mb-2">
-                        <button class="btn btn-success dropdown-toggle w-100" type="button" id="dropdownVeiculos" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-outline-success dropdown-toggle w-100" type="button" id="dropdownVeiculos" data-bs-toggle="dropdown" aria-expanded="false">
                             Veículos
                         </button>
                         <ul class="dropdown-menu w-100 custom-dropdown-menu" aria-labelledby="dropdownVeiculos">
@@ -24,7 +25,7 @@ require_once 'header.php';
                             <li><a class="dropdown-item" href="/EstacionamentoWebServidor/veiculosCadastrados">Meus Veículos</a></li>
                         </ul>
                     </div>
-                    <a href="/EstacionamentoWebServidor/cadastroEstacionamento" class="btn btn-primary w-100 mb-2">Estacionar</a>
+                    <a href="/EstacionamentoWebServidor/cadastroEstacionamento" class="btn btn-outline-success w-100 mb-2">Estacionar</a>
                     <?php if (isset($_SESSION['usuario_administrador']) && $_SESSION['usuario_administrador'] === 'S'): ?>
                         <a href="/EstacionamentoWebServidor/cadastroUsuario" class="btn btn-outline-dark w-100 mb-2">Cadastrar Usuário</a>
                     <?php endif; ?>
@@ -53,9 +54,12 @@ require_once 'header.php';
                             <td><?php echo htmlspecialchars($veiculo['placa']); ?></td>
                             <td><?php echo htmlspecialchars($veiculo['modelo']); ?></td>
                             <td>
-                                <!-- Botões de editar/excluir, com modais ou links conforme seu padrão -->
-                                <button class="btn btn-sm btn-warning" onclick="abrirEditarVeiculo(<?php echo $veiculo['id']; ?>)">Editar</button>
-                                <button class="btn btn-sm btn-danger" onclick="abrirExcluirVeiculo(<?php echo $veiculo['id']; ?>)">Excluir</button>
+                                <button class="btn btn-sm btn-warning" onclick="abrirEditarVeiculo(<?php echo $veiculo['id']; ?>)">
+                                    <i class="bi bi-pencil text-white"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="abrirExcluirVeiculo(<?php echo $veiculo['id']; ?>)">
+                                    <i class="bi bi-trash text-white"></i>
+                                </button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
