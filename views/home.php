@@ -6,57 +6,6 @@ session_start();
 }*/
 $title = 'Home';
 require_once 'header.php';
-function calcularEstacionadoAte($dataHora, $duracao) {
-    $horarioInicial = new DateTime($dataHora);
-    $minutosAdicionais = 0;
-
-    switch ($duracao) {
-        case '30min':
-            $minutosAdicionais = 30;
-            break;
-        case '1hr':
-            $minutosAdicionais = 60;
-            break;
-        case '1h30min':
-            $minutosAdicionais = 90;
-            break;
-        case '2hr':
-            $minutosAdicionais = 120;
-            break;
-        case '2h30min':
-            $minutosAdicionais = 150;
-            break;
-        case '3hr':
-            $minutosAdicionais = 180;
-            break;
-    }
-
-    $horarioInicial->modify("+$minutosAdicionais minutes");
-    return $horarioInicial->format('d/m/Y H:i');
-}
-
-$estacionamentos = [
-    ['id' => 1, 'veiculo' => 'Carro - ABC-1234', 'local' => 'Shopping Center', 'dataHora' => '2025-04-29T14:00', 'duracao' => '2hr'],
-    ['id' => 2, 'veiculo' => 'Moto - DEF-5678', 'local' => 'Supermercado', 'dataHora' => '2025-04-29T15:30', 'duracao' => '1h30min'],
-    ['id' => 3, 'veiculo' => 'Caminhão - GHI-9012', 'local' => 'Centro de Distribuição', 'dataHora' => '2025-04-29T16:00', 'duracao' => '3hr'],
-    ['id' => 4, 'veiculo' => 'Carro - JKL-3456', 'local' => 'Estádio', 'dataHora' => '2025-04-29T17:00', 'duracao' => '2h30min'],
-    ['id' => 5, 'veiculo' => 'Moto - MNO-7890', 'local' => 'Parque', 'dataHora' => '2025-04-29T18:00', 'duracao' => '1hr'],
-    ['id' => 6, 'veiculo' => 'Moto - DEF-5678', 'local' => 'Supermercado', 'dataHora' => '2025-04-29T15:30', 'duracao' => '1h30min'],
-    ['id' => 7, 'veiculo' => 'Caminhão - GHI-9012', 'local' => 'Centro de Distribuição', 'dataHora' => '2025-04-29T16:00', 'duracao' => '3hr'],
-    ['id' => 8, 'veiculo' => 'Carro - JKL-3456', 'local' => 'Estádio', 'dataHora' => '2025-04-29T17:00', 'duracao' => '2h30min'],
-    ['id' => 9, 'veiculo' => 'Moto - MNO-7890', 'local' => 'Parque', 'dataHora' => '2025-04-29T18:00', 'duracao' => '1hr'],
-    ['id' => 11, 'veiculo' => 'Carro - ABC-1234', 'local' => 'Shopping Center', 'dataHora' => '2025-04-29T14:00', 'duracao' => '2hr'],
-    ['id' => 12, 'veiculo' => 'Moto - DEF-5678', 'local' => 'Supermercado', 'dataHora' => '2025-04-29T15:30', 'duracao' => '1h30min'],
-    ['id' => 13, 'veiculo' => 'Caminhão - GHI-9012', 'local' => 'Centro de Distribuição', 'dataHora' => '2025-04-29T16:00', 'duracao' => '3hr'],
-    ['id' => 14, 'veiculo' => 'Carro - JKL-3456', 'local' => 'Estádio', 'dataHora' => '2025-04-29T17:00', 'duracao' => '2h30min'],
-    ['id' => 15, 'veiculo' => 'Moto - MNO-7890', 'local' => 'Parque', 'dataHora' => '2025-04-29T18:00', 'duracao' => '1hr'],
-    ['id' => 16, 'veiculo' => 'Moto - DEF-5678', 'local' => 'Supermercado', 'dataHora' => '2025-04-29T15:30', 'duracao' => '1h30min'],
-    ['id' => 17, 'veiculo' => 'Caminhão - GHI-9012', 'local' => 'Centro de Distribuição', 'dataHora' => '2025-04-29T16:00', 'duracao' => '3hr'],
-    ['id' => 18, 'veiculo' => 'Carro - JKL-3456', 'local' => 'Estádio', 'dataHora' => '2025-04-29T17:00', 'duracao' => '2h30min'],
-    ['id' => 19, 'veiculo' => 'Moto - MNO-7890', 'local' => 'Parque', 'dataHora' => '2025-04-29T18:00', 'duracao' => '1hr'],
-    ['id' => 20, 'veiculo' => 'Carro - PQR-1234', 'local' => 'Aeroporto', 'dataHora' => '2025-04-29T19:00', 'duracao' => '3hr'],
-    
-];
 ?>
 
 <div class="container mt-5">
@@ -98,19 +47,19 @@ $estacionamentos = [
                 <?php if (isset($estacionamentos) && is_array($estacionamentos)): ?>
                     <?php foreach ($estacionamentos as $estacionamento): ?>
                         <tr>
-                            <td><?php echo $estacionamento['id']; ?></td>
-                            <td><?php echo htmlspecialchars($estacionamento['veiculo']); ?></td>
-                            <td><?php echo htmlspecialchars($estacionamento['local']); ?></td>
-                            <td><?php echo date('d/m/Y H:i', strtotime($estacionamento['dataHora'])); ?></td>
-                            <td><?php echo htmlspecialchars($estacionamento['duracao']); ?></td>
-                            <td><?php echo calcularEstacionadoAte($estacionamento['dataHora'], $estacionamento['duracao']); ?></td>
+                            <td><?php echo $estacionamento->getId(); ?></td>
+                            <td><?php echo htmlspecialchars($estacionamento->getVeiculo()); ?></td>
+                            <td><?php echo htmlspecialchars($estacionamento->getLocal()); ?></td>
+                            <td><?php echo date('d/m/Y H:i', strtotime($estacionamento->getDataHora())); ?></td>
+                            <td><?php echo htmlspecialchars($estacionamento->getDuracao()); ?></td>
+                            <td><?php echo $estacionamento->calcularEstacionadoAte(); ?></td>
                             <td>
                                 <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal" 
-                                        onclick="preencherFormulario(<?php echo $estacionamento['id']; ?>, '<?php echo htmlspecialchars($estacionamento['veiculo']); ?>', '<?php echo htmlspecialchars($estacionamento['local']); ?>', '<?php echo $estacionamento['dataHora']; ?>', '<?php echo $estacionamento['duracao']; ?>')">
+                                        onclick="preencherFormulario(<?php echo $estacionamento->getId(); ?>, '<?php echo htmlspecialchars($estacionamento->getVeiculo()); ?>', '<?php echo htmlspecialchars($estacionamento->getLocal()); ?>', '<?php echo $estacionamento->getDataHora(); ?>', '<?php echo $estacionamento->getDuracao(); ?>')">
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#excluirModal" 
-                                        onclick="setExcluirId(<?php echo $estacionamento['id']; ?>)">
+                                        onclick="setExcluirId(<?php echo $estacionamento->getId(); ?>)">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </td>

@@ -1,5 +1,6 @@
 <?php
 require_once '../config/Conexao.php';
+require_once '../models/Estacionamento.php';
 
 $mensagem = '';
 $erro = '';
@@ -10,18 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dataHora = htmlspecialchars($_POST['dataHora'] ?? '');
     $duracao = htmlspecialchars($_POST['duracao'] ?? '');
 
-    if (empty($veiculo) || empty($local) || empty($dataHora) || empty($duracao)) {
-        $erro = "Todos os campos são obrigatórios.";
-    } else {
-        $dataHoraSelecionada = DateTime::createFromFormat('Y-m-d\TH:i', $dataHora);
-        $dataHoraAtual = new DateTime();
-        $dataHoraAtual->setTime((int)$dataHoraAtual->format('H'), (int)$dataHoraAtual->format('i'));
+    $estacionamento = new Estacionamento(null, $veiculo, $local, $dataHora, $duracao);
 
-        if ($dataHoraSelecionada <= $dataHoraAtual) {
-            $erro = "Não é possível estacionar em datas ou horas passadas.";
-        } else {
-            $mensagem = "Estacionamento cadastrado com sucesso! Duração: $duracao.";
-        }
+    if (!$estacionamento->validarCamposObrigatorios()) {
+        $erro = "Todos os campos são obrigatórios.";
+    } elseif (!$estacionamento->validarDataHoraFutura()) {
+        $erro = "Não é possível estacionar em datas ou horas passadas.";
+    } else {
+        $mensagem = "Estacionamento cadastrado com sucesso! Duração: $duracao.";
+        // $estacionadoAte será usado na view
+        $estacionadoAte = $estacionamento->calcularEstacionadoAte();
     }
 }
 

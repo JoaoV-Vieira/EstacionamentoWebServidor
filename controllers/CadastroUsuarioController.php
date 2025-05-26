@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($_POST['nome'] ?? '');
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $senha = $_POST['senha'] ?? '';
-    $administrador = isset($_POST['administrador']) ? 'S' : 'N';
+    $administrador = isset($_POST['administrador']) ? 1 : 0;
 
     if (!$nome || !$email || !$senha) {
         $mensagem = "Todos os campos são obrigatórios.";
@@ -15,9 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensagem = "A senha deve ter pelo menos 8 caracteres.";
     } else {
         try {
-            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+            $usuario = new Usuario($nome, $email, null, $administrador);
+            $usuario->setSenha($senha);
 
-            if (Usuario::cadastrar($nome, $email, $senhaHash, $administrador)) {
+            if ($usuario->salvar()) {
                 $mensagem = "Usuário cadastrado com sucesso.";
             } else {
                 $mensagem = "Erro ao cadastrar usuário. O email já pode estar cadastrado.";
