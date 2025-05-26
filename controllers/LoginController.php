@@ -14,15 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario = Usuario::autenticar($email, $senha);
 
         if ($usuario instanceof Usuario) {
-            // Login bem-sucedido, define variáveis de sessão
             $_SESSION['usuario_id'] = $usuario->getId();
             $_SESSION['usuario_nome'] = $usuario->getNome();
             $_SESSION['usuario_administrador'] = $usuario->getAdministrador();
 
-            header('Location: ../views/home.php');
+            header('Location: /EstacionamentoWebServidor/home');
             exit;
         } else {
-            $erro = $usuario; // Mensagem de erro retornada pelo método autenticar
+            $erro = $usuario; 
         }
     }
 }

@@ -1,17 +1,9 @@
 <?php
-session_start();
 $title = 'Cadastro de Estacionamento';
 require_once 'header.php';
 ?>
 
 <div class="container-cadastro">
-    <h2>Cadastro de Estacionamento</h2>
-    <?php if (!empty($mensagem)): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($mensagem); ?></div>
-    <?php endif; ?>
-    <?php if (!empty($erro)): ?>
-        <div class="alert alert-danger"><?php echo htmlspecialchars($erro); ?></div>
-    <?php endif; ?>
     <form method="POST">
         <div class="form-group mb-3">
             <label for="veiculo">Veículo</label>
@@ -61,7 +53,7 @@ require_once 'header.php';
             </span>
         </div>
         <button type="submit" class="btn btn-outline-success">Estacionar</button>
-        <a href="home.php" class="btn btn-outline-secondary">Voltar</a>
+        <a href="/EstacionamentoWebServidor/home" class="btn btn-outline-secondary">Voltar</a>
     </form>
 </div>
 <script>
@@ -109,4 +101,16 @@ document.addEventListener('DOMContentLoaded', function() {
     duracaoRadios.forEach(radio => radio.addEventListener('change', calcularEstacionadoAte));
 });
 </script>
+
+<?php require_once 'modals.php'; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    <?php if (!empty($mensagem) || !empty($erro)): ?>
+        var cadastroEstacionamentoModal = new bootstrap.Modal(document.getElementById('cadastroEstacionamentoModal'));
+        cadastroEstacionamentoModal.show();
+    <?php endif; ?>
+});
+</script>
+
 <?php require_once 'footer.php'; ?>

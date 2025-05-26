@@ -95,5 +95,41 @@ class Usuario {
             return 'Erro ao autenticar o usuário.';
         }
     }
+
+    // Atualiza os dados do usuário
+    public function atualizar() {
+        try {
+            $conexao = Conexao::getConexao();
+            $sql = "UPDATE usuarios SET nome = :nome, email = :email, administrador = :administrador"
+                 . (empty($this->senhaHash) ? "" : ", senha = :senha")
+                 . " WHERE id = :id";
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindParam(':nome', $this->nome);
+            $stmt->bindParam(':email', $this->email);
+            $stmt->bindParam(':administrador', $this->administrador);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            if (!empty($this->senhaHash)) {
+                $stmt->bindParam(':senha', $this->senhaHash);
+            }
+            return $stmt->execute();
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    // Exclui o usuário pelo ID
+    public static function excluirPorId($id) {
+        try {
+            $conexao = Conexao::getConexao();
+            $sql = "DELETE FROM usuarios WHERE id = :id";
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }
 ?>

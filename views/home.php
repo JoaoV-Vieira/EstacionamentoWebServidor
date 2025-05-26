@@ -1,9 +1,5 @@
 <?php
-session_start();
-/*if (!isset($_SESSION['usuario_nome'])) {
-    header('Location: login.php');
-    exit;
-}*/
+
 $title = 'Home';
 require_once 'header.php';
 ?>
@@ -20,10 +16,22 @@ require_once 'header.php';
                 <div class="card-body text-center">
                     <h5 class="card-title"><?php echo htmlspecialchars($_SESSION['usuario_nome'] ?? 'Usuário'); ?></h5>
                     <p class="card-text">Bem-vindo!</p>
-                    <a href="cadastroVeiculo.php" class="btn btn btn-success w-100 mb-2">Veículos</a>
-                    <a href="cadastroEstacionamento.php" class="btn btn-primary w-100 mb-2">Estacionar</a>
-                    <a href="cadastroUsuario.php" class="btn btn-outline-dark w-100 mb-2">Cadastrar Usuário</a>
-                    <a href="login.php" class="btn btn-danger w-100">Sair</a>
+                    <a href="/EstacionamentoWebServidor/home" class="btn btn-outline-success w-100 mb-2">Home</a>
+                    <div class="dropdown w-100 mb-2">
+                        <button class="btn btn-outline-success dropdown-toggle w-100" type="button" id="dropdownVeiculos" data-bs-toggle="dropdown" aria-expanded="false">
+                            Veículos
+                        </button>
+                        <ul class="dropdown-menu w-100 custom-dropdown-menu" aria-labelledby="dropdownVeiculos">
+                            <li><a class="dropdown-item" href="/EstacionamentoWebServidor/cadastroVeiculo">Cadastrar Veículo</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/EstacionamentoWebServidor/veiculosCadastrados">Meus Veículos</a></li>
+                        </ul>
+                    </div>
+                    <a href="/EstacionamentoWebServidor/cadastroEstacionamento" class="btn btn-outline-success w-100 mb-2">Estacionar</a>
+                    <?php if (isset($_SESSION['usuario_administrador']) && $_SESSION['usuario_administrador'] === 'S'): ?>
+                        <a href="/EstacionamentoWebServidor/cadastroUsuario" class="btn btn-outline-dark w-100 mb-2">Cadastrar Usuário</a>
+                    <?php endif; ?>
+                    <a href="/EstacionamentoWebServidor/logout" class="btn btn-danger w-100">Sair</a>
                 </div>
             </div>
         </div>
@@ -55,7 +63,13 @@ require_once 'header.php';
                             <td><?php echo $estacionamento->calcularEstacionadoAte(); ?></td>
                             <td>
                                 <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal" 
-                                        onclick="preencherFormulario(<?php echo $estacionamento->getId(); ?>, '<?php echo htmlspecialchars($estacionamento->getVeiculo()); ?>', '<?php echo htmlspecialchars($estacionamento->getLocal()); ?>', '<?php echo $estacionamento->getDataHora(); ?>', '<?php echo $estacionamento->getDuracao(); ?>')">
+                                        onclick="preencherFormulario(
+                                            <?php echo $estacionamento->getId(); ?>,
+                                            <?php echo $estacionamento->getVeiculoId(); ?>,
+                                            '<?php echo htmlspecialchars($estacionamento->getLocal()); ?>',
+                                            '<?php echo $estacionamento->getDataHora(); ?>',
+                                            '<?php echo $estacionamento->getDuracao(); ?>'
+                                        )">
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#excluirModal" 
@@ -79,9 +93,9 @@ require_once 'header.php';
 <?php require_once 'modals.php'; ?>
 
 <script>
-    function preencherFormulario(id, veiculo, local, dataHora, duracao) {
+    function preencherFormulario(id, veiculoId, local, dataHora, duracao) {
         document.getElementById('editarId').value = id;
-        document.getElementById('editarVeiculo').value = veiculo;
+        document.getElementById('editarVeiculo').value = veiculoId;
         document.getElementById('editarLocal').value = local;
         document.getElementById('editarDataHora').value = dataHora;
         document.getElementById('editarDuracao').value = duracao;

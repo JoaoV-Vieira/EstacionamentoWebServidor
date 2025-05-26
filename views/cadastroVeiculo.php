@@ -9,12 +9,6 @@ $tipos = $fipe->getTipos();
 
 <div class="container-cadastro">
     <h2>Cadastro de Veículo</h2>
-    <?php if (!empty($mensagem)): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($mensagem); ?></div>
-    <?php endif; ?>
-    <?php if (!empty($erro)): ?>
-        <div class="alert alert-danger"><?php echo htmlspecialchars($erro); ?></div>
-    <?php endif; ?>
     <form method="POST">
         <div class="form-group mb-3">
             <label for="tipo">Tipo de veículo</label>
@@ -41,10 +35,23 @@ $tipos = $fipe->getTipos();
             <label for="placa" class="form-label">Placa:</label>
             <input type="text" name="placa" id="placa" class="form-control" placeholder="ABC-1234" required>
         </div>
+        <input type="hidden" name="montadora_nome" id="montadora_nome">
+        <input type="hidden" name="modelo_nome" id="modelo_nome">
         <button type="submit" class="btn btn-outline-success">Cadastrar</button>
-        <a href="home.php" class="btn btn-outline-secondary">Voltar</a>
+        <a href="/EstacionamentoWebServidor/home" class="btn btn-outline-secondary">Voltar</a>
     </form>
 </div>
+
+<?php require_once 'modals.php'; ?>
+
+<?php if (!empty($modalMensagem)): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = new bootstrap.Modal(document.getElementById('cadastroVeiculoModal'));
+    modal.show();
+});
+</script>
+<?php endif; ?>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -62,8 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     data.forEach(function(marca) {
                         const opt = document.createElement('option');
-                        opt.value = marca.codigo;
+                        opt.value = marca.codigo; 
                         opt.textContent = marca.nome;
+                        opt.setAttribute('data-nome', marca.nome); 
                         montadoraSelect.appendChild(opt);
                     });
                 });
@@ -73,9 +81,12 @@ document.addEventListener('DOMContentLoaded', function() {
     montadoraSelect.addEventListener('change', function() {
         modeloSelect.innerHTML = '<option value="">Selecione um modelo...</option>';
         const tipo = tipoSelect.value;
-        const marca = montadoraSelect.value;
-        if (tipo && marca) {
-            fetch('/EstacionamentoWebServidor/ajax/ajax_modelos.php?tipo=' + tipo + '&marca=' + marca)
+        const marcaCodigo = montadoraSelect.value;
+        const selectedOption = montadoraSelect.options[montadoraSelect.selectedIndex];
+        document.getElementById('montadora_nome').value = selectedOption ? selectedOption.textContent : '';
+
+        if (tipo && marcaCodigo) {
+            fetch('/EstacionamentoWebServidor/ajax/ajax_modelos.php?tipo=' + tipo + '&marca=' + marcaCodigo)
                 .then(response => response.json())
                 .then(data => {
                     if (data.modelos) {
@@ -83,11 +94,17 @@ document.addEventListener('DOMContentLoaded', function() {
                             const opt = document.createElement('option');
                             opt.value = modelo.codigo;
                             opt.textContent = modelo.nome;
+                            opt.setAttribute('data-nome', modelo.nome);
                             modeloSelect.appendChild(opt);
                         });
                     }
                 });
         }
+    });
+
+    modeloSelect.addEventListener('change', function() {
+        const selectedOption = modeloSelect.options[modeloSelect.selectedIndex];
+        document.getElementById('modelo_nome').value = selectedOption ? selectedOption.textContent : '';
     });
 });
 </script>

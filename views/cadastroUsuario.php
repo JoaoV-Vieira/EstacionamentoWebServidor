@@ -1,16 +1,9 @@
 <?php
-session_start();
 $title = 'Cadastro de Usuário';
 require_once 'header.php';
 ?>
 <div class="container-cadastro">
     <h2>Cadastro de Usuário</h2>
-    <?php if (!empty($mensagem)): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($mensagem); ?></div>
-    <?php endif; ?>
-    <?php if (!empty($erro)): ?>
-        <div class="alert alert-danger"><?php echo htmlspecialchars($erro); ?></div>
-    <?php endif; ?>
     <form method="POST">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome:</label>
@@ -31,7 +24,19 @@ require_once 'header.php';
             </div>
         </div>
         <button type="submit" class="btn btn-outline-success">Cadastrar</button>
-        <a href="home.php" class="btn btn-outline-secondary">Voltar</a>
+        <a href="/EstacionamentoWebServidor/home" class="btn btn-outline-secondary">Voltar</a>
     </form>
 </div>
+
+<?php require_once 'modals.php'; ?>
+
+<?php if (!empty($modalMensagem)): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = new bootstrap.Modal(document.getElementById('cadastroUsuarioModal'));
+    modal.show();
+});
+</script>
+<?php endif; ?>
+
 <?php require_once 'footer.php'; ?>

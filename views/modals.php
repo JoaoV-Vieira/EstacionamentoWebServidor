@@ -1,24 +1,3 @@
-<!-- Modal de Confirmação de Exclusão do Estacionamento -->
-<div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="excluirModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="excluirModalLabel">Confirmar Exclusão</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                Tem certeza de que deseja excluir este estacionamento?
-            </div>
-            <div class="modal-footer">
-                <form method="POST" action="excluirEstacionamento.php" autocomplete="off">
-                    <input type="hidden" name="id" id="excluirId">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cancelar">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" aria-label="Excluir definitivamente">Excluir</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal de Edição do Estacionamento -->
 <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
@@ -33,7 +12,12 @@
                     <input type="hidden" name="id" id="editarId">
                     <div class="form-group mb-3">
                         <label for="editarVeiculo">Veículo</label>
-                        <input type="text" name="veiculo" id="editarVeiculo" class="form-control" required autocomplete="off">
+                        <select class="form-control" name="veiculo" id="editarVeiculo" required>
+                            <option value="">Selecione um veículo...</option>
+                            <?php foreach ($veiculos as $veiculo): ?>
+                                <option value="<?php echo $veiculo['id']; ?>"><?php echo htmlspecialchars($veiculo['descricao']); ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group mb-3">
                         <label for="editarLocal">Local</label>
@@ -70,4 +54,72 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Modal de Cadastro de Usuario -->
+<div class="modal fade" id="cadastroUsuarioModal" tabindex="-1" aria-labelledby="cadastroUsuarioModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-<?php echo $modalTipo === 'success' ? 'success' : 'danger'; ?>">
+        <h5 class="modal-title text-white" id="cadastroUsuarioModalLabel">
+          <?php echo $modalTipo === 'success' ? 'Sucesso' : 'Erro'; ?>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <?php echo htmlspecialchars($modalMensagem); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-<?php echo $modalTipo === 'success' ? 'success' : 'danger'; ?>" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal de Cadastro de Veiculo -->
+<div class="modal fade" id="cadastroVeiculoModal" tabindex="-1" aria-labelledby="cadastroVeiculoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-<?php echo $modalTipo === 'success' ? 'success' : 'danger'; ?>">
+        <h5 class="modal-title text-white" id="cadastroVeiculoModalLabel">
+          <?php echo $modalTipo === 'success' ? 'Sucesso' : 'Erro'; ?>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <?php echo htmlspecialchars($modalMensagem); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-<?php echo $modalTipo === 'success' ? 'success' : 'danger'; ?>" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Cadastro de Estacionamento -->
+<div class="modal fade" id="cadastroEstacionamentoModal" tabindex="-1" aria-labelledby="cadastroEstacionamentoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header <?php echo !empty($mensagem) ? 'bg-success' : 'bg-danger'; ?>">
+        <h5 class="modal-title text-white" id="cadastroEstacionamentoModalLabel">
+          <?php echo !empty($mensagem) ? 'Sucesso' : 'Erro'; ?>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <?php
+          if (!empty($mensagem)) {
+              echo htmlspecialchars($mensagem);
+          } elseif (!empty($erro)) {
+              echo htmlspecialchars($erro);
+          }
+        ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
 </div>

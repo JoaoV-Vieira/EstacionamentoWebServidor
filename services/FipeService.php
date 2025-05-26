@@ -6,7 +6,6 @@ class FipeService
 
     public function getTipos()
     {
-        // A API Fipe trabalha com 'carros', 'motos', 'caminhoes'
         return [
             'carros' => 'Carro',
             'motos' => 'Moto',
@@ -23,12 +22,6 @@ class FipeService
     public function getModelos($tipo, $codigoMarca)
     {
         $endpoint = "{$this->baseUrl}/{$tipo}/marcas/{$codigoMarca}/modelos";
-        return $this->fetchApi($endpoint);
-    }
-
-    public function getAnos($tipo, $codigoMarca, $codigoModelo)
-    {
-        $endpoint = "{$this->baseUrl}/{$tipo}/marcas/{$codigoMarca}/modelos/{$codigoModelo}/anos";
         return $this->fetchApi($endpoint);
     }
 
