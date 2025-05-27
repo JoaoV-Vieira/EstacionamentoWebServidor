@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+error_reporting(E_ALL & ~E_WARNING);
 $modalMensagem = $_SESSION['modalMensagem'] ?? '';
 $modalTipo = $_SESSION['modalTipo'] ?? '';
 unset($_SESSION['modalMensagem'], $_SESSION['modalTipo']);
@@ -16,11 +17,9 @@ $dadosRelatorio = $dadosRelatorio ?? [];
 
 <div class="container mt-5">
     <div class="row">
-        <!-- Coluna da esquerda: Menu do usuário -->
         <div class="col-md-3">
             <?php require_once 'sidebarUsuario.php'; ?>
         </div>
-        <!-- Coluna central: Botões de seleção de relatório (20%) -->
         <div class="col-md-2 d-flex flex-column align-items-center">
             <form method="get" class="w-100">
                 <div class="d-grid gap-3">
@@ -39,15 +38,19 @@ $dadosRelatorio = $dadosRelatorio ?? [];
                 </div>
             </form>
         </div>
-        <!-- Coluna da direita: Tabela de dados (80%) -->
         <div class="col-md-7">
-            <h5 class="mb-3">
-                <?php
-                if ($tipoRelatorioSelecionado === 'estacionamentos') echo 'Estacionamentos cadastrados';
-                elseif ($tipoRelatorioSelecionado === 'veiculos') echo 'Veículos cadastrados';
-                elseif ($tipoRelatorioSelecionado === 'usuarios') echo 'Usuários cadastrados';
-                ?>
-            </h5>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">
+                    <?php
+                    if ($tipoRelatorioSelecionado === 'estacionamentos') echo 'Estacionamentos cadastrados';
+                    elseif ($tipoRelatorioSelecionado === 'veiculos') echo 'Veículos cadastrados';
+                    elseif ($tipoRelatorioSelecionado === 'usuarios') echo 'Usuários cadastrados';
+                    ?>
+                </h5>
+                <a href="/EstacionamentoWebServidor/exportarExcel.php?tipo=<?php echo $tipoRelatorioSelecionado; ?>" class="btn btn-outline-success btn-sm">
+                    <i class="bi bi-file-earmark-excel"></i> Exportar
+                </a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-sm">
                     <thead>
@@ -113,7 +116,65 @@ $dadosRelatorio = $dadosRelatorio ?? [];
     </div>
 </div>
 
-<?php require_once 'modals.php'; ?>
+<!-- Modal Editar Usuário -->
+<div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="/EstacionamentoWebServidor/controllers/UsuarioController.php">
+      <input type="hidden" name="acao" value="editar">
+      <input type="hidden" name="id" id="editarUsuarioId">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="editarUsuarioNome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="editarUsuarioNome" name="nome" required>
+          </div>
+          <div class="mb-3">
+            <label for="editarUsuarioEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="editarUsuarioEmail" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="editarUsuarioAdministrador" class="form-label">Administrador</label>
+            <select class="form-select" id="editarUsuarioAdministrador" name="administrador">
+              <option value="S">Sim</option>
+              <option value="N">Não</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Salvar Alterações</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Excluir Usuário -->
+<div class="modal fade" id="excluirUsuarioModal" tabindex="-1" aria-labelledby="excluirUsuarioModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="/EstacionamentoWebServidor/controllers/UsuarioController.php">
+      <input type="hidden" name="acao" value="excluir">
+      <input type="hidden" name="id" id="excluirUsuarioId">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="excluirUsuarioModalLabel">Excluir Usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja excluir este usuário?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Excluir</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
 function preencherModalEditarUsuario(id, nome, email, administrador) {

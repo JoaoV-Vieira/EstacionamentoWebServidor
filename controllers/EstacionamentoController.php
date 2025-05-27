@@ -1,9 +1,10 @@
 <?php
+error_reporting(E_ALL & ~E_WARNING);
 require_once __DIR__ . '/../config/Conexao.php';
 require_once __DIR__ . '/../models/Estacionamento.php';
 require_once __DIR__ . '/../models/Veiculo.php';
 
-session_start();
+
 $usuarioId = $_SESSION['usuario_id'] ?? null;
 $acao = $_GET['acao'] ?? $_POST['acao'] ?? 'cadastrar';
 
@@ -19,10 +20,29 @@ switch ($acao) {
         exit;
 
     case 'editar':
-        // Aqui você pode implementar a lógica de edição se desejar
-        // Exemplo:
-        // if ($_SERVER['REQUEST_METHOD'] === 'POST') { ... }
-        break;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+            $id = (int)$_POST['id'];
+            $veiculoId = htmlspecialchars($_POST['veiculo'] ?? '');
+            $local = htmlspecialchars(trim($_POST['local'] ?? ''));
+            $dataHora = htmlspecialchars($_POST['dataHora'] ?? '');
+            $duracao = htmlspecialchars($_POST['duracao'] ?? '');
+
+            $estacionamento = new Estacionamento($usuarioId, $veiculoId, $local, $dataHora, $duracao, $id);
+
+            if (!$estacionamento->validarCamposObrigatorios()) {
+                $erro = "Todos os campos são obrigatórios.";
+            } elseif (!$estacionamento->validarDataHoraFutura()) {
+                $erro = "Não é possível estacionar em datas ou horas passadas.";
+            } else {
+                if ($estacionamento->atualizar()) {
+                    $mensagem = "Estacionamento atualizado com sucesso!";
+                } else {
+                    $erro = "Erro ao atualizar estacionamento.";
+                }
+            }
+        }
+        header('Location: /EstacionamentoWebServidor/home');
+        exit;
 
     case 'cadastrar':
     default:

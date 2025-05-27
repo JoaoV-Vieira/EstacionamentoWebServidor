@@ -1,7 +1,8 @@
 <?php
+error_reporting(E_ALL & ~E_WARNING);
 require_once __DIR__ . '/../models/Veiculo.php';
 
-session_start();
+
 $usuarioId = $_SESSION['usuario_id'] ?? null;
 $veiculos = [];
 

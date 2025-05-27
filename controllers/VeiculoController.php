@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL & ~E_WARNING);
 require_once __DIR__ . '/../models/Veiculo.php';
 require_once __DIR__ . '/../services/FipeService.php';
 
@@ -18,8 +19,7 @@ switch ($acao) {
             $modalMensagem = "Veículo excluído com sucesso!";
             $modalTipo = 'success';
         }
-        // Após exclusão, pode redirecionar ou recarregar a lista
-        header('Location: /EstacionamentoWebServidor/cadastroVeiculo');
+        header('Location: /EstacionamentoWebServidor/veiculosCadastrados');
         exit;
 
     case 'editar':
@@ -47,7 +47,7 @@ switch ($acao) {
                 $modalTipo = 'success';
             }
         }
-        header('Location: /EstacionamentoWebServidor/cadastroVeiculo');
+        header('Location: /EstacionamentoWebServidor/veiculosCadastrados');
         exit;
 
     case 'cadastrar':

@@ -127,5 +127,18 @@ class Estacionamento {
         $stmt = $conexao->query("SELECT COUNT(*) FROM estacionamentos");
         return (int)$stmt->fetchColumn();
     }
+
+    public function atualizar() {
+        require_once __DIR__ . '/../config/Conexao.php';
+        $conexao = Conexao::getConexao();
+        $sql = "UPDATE estacionamentos SET veiculo_id = :veiculo_id, local = :local, data_hora = :data_hora, duracao = :duracao WHERE id = :id";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(':veiculo_id', $this->veiculoId);
+        $stmt->bindParam(':local', $this->local);
+        $stmt->bindParam(':data_hora', $this->dataHora);
+        $stmt->bindParam(':duracao', $this->duracao);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
 ?>
