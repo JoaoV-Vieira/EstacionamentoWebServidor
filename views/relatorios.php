@@ -39,6 +39,12 @@ $dadosRelatorio = $dadosRelatorio ?? [];
             </form>
         </div>
         <div class="col-md-7">
+            <?php if (!empty($modalMensagem)): ?>
+                <div class="alert alert-<?php echo $modalTipo === 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
+                    <?php echo htmlspecialchars($modalMensagem); ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+            <?php endif; ?>
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="mb-0">
                     <?php
