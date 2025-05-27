@@ -58,9 +58,9 @@ E remova o `;` do início da linha para descomentá-las.
 ### 2. Configurar o Banco de Dados
 1. Acesse o phpMyAdmin: `http://localhost/phpmyadmin`
 2. Crie um banco de dados chamado: `estacionamento`
-3. Importe o arquivo `iniciarBanco.txt` para criar a tabela `usuarios` e inserir dados iniciais:
+3. Importe o arquivo `iniciarBanco.txt` para criar as tabelas `usuarios`, `veiculos` e `estacionamentos` e inserir dados iniciais:
    - Clique no banco `estacionamento` > Aba **Importar** > Selecione `iniciarBanco.txt`
-   - O arquivo iniciarBanco.txt já está programado para popular as tabelas para o usuario 1 - SUP, de forma a testar o funcionamento já de inicio sem a necessidade do cadastro de novos registros
+   - O arquivo iniciarBanco.txt já está programado para popular as tabelas para o usuario "1 - SUP", de forma a testar o funcionamento já de inicio sem a necessidade do cadastro de novos registros
 
 ---
 
@@ -87,7 +87,7 @@ Abra o painel do XAMPP e inicie:
 ### 3. Acessar no Navegador
 Digite no navegador:
 ```
-http://localhost/EstacionamentoWebServidor/views/login.php
+http://localhost/EstacionamentoWebServidor/login
 ```
 
 ---
@@ -95,5 +95,5 @@ http://localhost/EstacionamentoWebServidor/views/login.php
 ## 🛠️ Melhorias e ajustes necessários
 
 ### 🔴 Alteração por banco de dados
-> As alterações / atualizações de registro do sistema como Usuarios, Veiculos e Estacionamentos ainda **não está funcionando corretamente**. O problema está sendo investigado.
+> As alterações / atualizações de registro do sistema como Usuarios, Veiculos e Estacionamentos funcionam nas chamadas das funções, porém ainda **não estão funcionando corretamente** pela chamada do aplicativo, via modal. O problema está sendo investigado.
 
