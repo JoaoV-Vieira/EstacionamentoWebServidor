@@ -72,7 +72,7 @@ $dadosRelatorio = $dadosRelatorio ?? [];
                     </thead>
                     <tbody>
                         <?php if (empty($dadosRelatorio)): ?>
-                            <tr><td colspan="10" class="text-center">Nenhum registro encontrado.</td></tr>
+                            <tr><td colspan="10" class="text-center">Nenhum registro encontrado...</td></tr>
                         <?php else: ?>
                             <?php foreach ($dadosRelatorio as $item): ?>
                                 <tr>
