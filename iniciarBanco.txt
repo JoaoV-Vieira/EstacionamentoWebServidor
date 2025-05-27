@@ -10,7 +10,7 @@ CREATE TABLE usuarios (
 -- Dados para primeiro login
 -- Usuario sup@sup.com 
 -- Senha: sup@sup.com
-insert into usuarios (nome, email, senha, administrador) values ('SUP', 'sup@sup.com', '$2y$10$Y83/p1hGsytUXueyvDHe1eNDGvfu95brrnkgf5DkLTzyxpGiryoVe', 'S');
+insert into usuarios (nome, email, senha, administrador) values ('SUP', 'sup@sup.com', '$2y$10$yhZchx9sT9tB7jKvlmGoy.Qxp0ygFipxIgv5nC3tCCXww9T.VhIXG', 'S');
 
 -- Tabela de Veiculos
 CREATE TABLE veiculos (
@@ -46,7 +46,7 @@ CREATE TABLE estacionamentos (
 
 -- Populando tabela estacionamentos para testes iniciais
 INSERT INTO estacionamentos (id, usuario_id, veiculo_id, local, data_hora, duracao) VALUES
-(1, 1, 11, 'Aqui mesmo', '2025-05-27 06:55:00', '1hr'),
-(2, 1, 10, 'Aqui mesmo', '2025-05-27 15:34:00', '1hr'),
-(3, 1, 10, 'Shopping Center', '2025-05-29 15:34:00', '3hr'),
-(4, 1, 10, 'Aqui mesmo', '2025-05-28 15:58:00', '30min');
+(1, 1, 1, 'Aqui mesmo', '2025-05-27 06:55:00', '1hr'),
+(2, 1, 2, 'Aqui mesmo', '2025-05-27 15:34:00', '1hr'),
+(3, 1, 3, 'Shopping Center', '2025-05-29 15:34:00', '3hr'),
+(4, 1, 4, 'Aqui mesmo', '2025-05-28 15:58:00', '30min');
