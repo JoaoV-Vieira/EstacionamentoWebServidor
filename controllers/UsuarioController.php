@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/Usuario.php';
 
-session_start();
 $acao = $_GET['acao'] ?? $_POST['acao'] ?? 'cadastrar';
 
 $modalMensagem = '';
@@ -11,10 +10,13 @@ switch ($acao) {
     case 'excluir':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             Usuario::excluirPorId((int)$_POST['id']);
-            $modalMensagem = "Usuário excluído com sucesso!";
-            $modalTipo = 'success';
+            $_SESSION['modalMensagem'] = "Usuário excluído com sucesso!";
+            $_SESSION['modalTipo'] = 'success';
+        } else {
+            $_SESSION['modalMensagem'] = "Erro ao excluir usuário.";
+            $_SESSION['modalTipo'] = 'danger';
         }
-        header('Location: /EstacionamentoWebServidor/cadastroUsuario');
+        header('Location: /EstacionamentoWebServidor/relatorios?tipo=usuarios');
         exit;
 
     case 'editar':
@@ -33,15 +35,15 @@ switch ($acao) {
                     $usuario->setSenha($_POST['senha']);
                 }
                 if ($usuario->atualizar()) {
-                    $modalMensagem = "Usuário atualizado com sucesso!";
-                    $modalTipo = 'success';
+                    $_SESSION['modalMensagem'] = "Usuário atualizado com sucesso!";
+                    $_SESSION['modalTipo'] = 'success';
                 } else {
-                    $modalMensagem = "Erro ao atualizar usuário.";
-                    $modalTipo = 'danger';
+                    $_SESSION['modalMensagem'] = "Erro ao atualizar usuário.";
+                    $_SESSION['modalTipo'] = 'danger';
                 }
             }
         }
-        header('Location: /EstacionamentoWebServidor/cadastroUsuario');
+        header('Location: /EstacionamentoWebServidor/relatorios?tipo=usuarios');
         exit;
 
     case 'cadastrar':

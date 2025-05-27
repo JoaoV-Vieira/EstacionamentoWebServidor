@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $route = $_GET['route'] ?? 'home';
 
@@ -28,6 +30,9 @@ switch ($route) {
         break;
     case 'veiculosCadastrados':
         require __DIR__ . '/controllers/VeiculosCadastradosController.php';
+        break;
+    case 'relatorios':
+        require __DIR__ . '/controllers/RelatoriosController.php';
         break;
     case 'home':
     default:

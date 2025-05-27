@@ -1,4 +1,3 @@
-
 <!-- Modal de Edição do Estacionamento -->
 <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -121,5 +120,65 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal Editar Usuário -->
+<div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="/EstacionamentoWebServidor/controllers/UsuarioController.php">
+      <input type="hidden" name="acao" value="editar">
+      <input type="hidden" name="id" id="editarUsuarioId">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="editarUsuarioNome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="editarUsuarioNome" name="nome" required>
+          </div>
+          <div class="mb-3">
+            <label for="editarUsuarioEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="editarUsuarioEmail" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="editarUsuarioAdministrador" class="form-label">Administrador</label>
+            <select class="form-select" id="editarUsuarioAdministrador" name="administrador">
+              <option value="S">Sim</option>
+              <option value="N">Não</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Salvar Alterações</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Excluir Usuário -->
+<div class="modal fade" id="excluirUsuarioModal" tabindex="-1" aria-labelledby="excluirUsuarioModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="/EstacionamentoWebServidor/controllers/UsuarioController.php">
+      <input type="hidden" name="acao" value="excluir">
+      <input type="hidden" name="id" id="excluirUsuarioId">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="excluirUsuarioModalLabel">Excluir Usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja excluir este usuário?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Excluir</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

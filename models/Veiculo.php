@@ -140,5 +140,28 @@ class Veiculo {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function listarTodos() {
+        $con = Conexao::getConexao();
+        $stmt = $con->prepare("
+            SELECT 
+                v.id, 
+                v.tipo, 
+                v.placa, 
+                v.modelo, 
+                u.nome AS usuario
+            FROM veiculos v
+            JOIN usuarios u ON u.id = v.usuario_id
+            ORDER BY v.id DESC
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function contarTodos() {
+        $con = Conexao::getConexao();
+        $stmt = $con->query("SELECT COUNT(*) FROM veiculos");
+        return (int)$stmt->fetchColumn();
+    }
 }
 ?>

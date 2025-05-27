@@ -100,5 +100,32 @@ class Estacionamento {
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public static function listarTodos() {
+        require_once __DIR__ . '/../config/Conexao.php';
+        $conexao = Conexao::getConexao();
+        $stmt = $conexao->prepare("
+            SELECT 
+                e.id, 
+                v.modelo AS veiculo, 
+                e.local, 
+                e.data_hora, 
+                e.duracao, 
+                u.nome AS usuario
+            FROM estacionamentos e
+            JOIN veiculos v ON v.id = e.veiculo_id
+            JOIN usuarios u ON u.id = e.usuario_id
+            ORDER BY e.data_hora DESC
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function contarTodos() {
+        require_once __DIR__ . '/../config/Conexao.php';
+        $conexao = Conexao::getConexao();
+        $stmt = $conexao->query("SELECT COUNT(*) FROM estacionamentos");
+        return (int)$stmt->fetchColumn();
+    }
 }
 ?>

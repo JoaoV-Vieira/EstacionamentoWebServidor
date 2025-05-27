@@ -131,5 +131,24 @@ class Usuario {
             return false;
         }
     }
+
+    public static function listarTodos() {
+        $con = Conexao::getConexao();
+        $stmt = $con->prepare("SELECT id, nome, email, administrador FROM usuarios ORDER BY id DESC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function contarTodos() {
+        $con = Conexao::getConexao();
+        $stmt = $con->query("SELECT COUNT(*) FROM usuarios");
+        return (int)$stmt->fetchColumn();
+    }
+
+    public static function editar($id, $nome, $email, $administrador) {
+    $con = Conexao::getConexao();
+    $stmt = $con->prepare("UPDATE usuarios SET nome = ?, email = ?, administrador = ? WHERE id = ?");
+    $stmt->execute([$nome, $email, $administrador, $id]);
+}
 }
 ?>

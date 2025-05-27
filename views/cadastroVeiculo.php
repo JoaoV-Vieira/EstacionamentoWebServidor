@@ -7,39 +7,48 @@ $fipe = new FipeService();
 $tipos = $fipe->getTipos();
 ?>
 
-<div class="container-cadastro">
-    <h2>Cadastro de Veículo</h2>
-    <form method="POST">
-        <div class="form-group mb-3">
-            <label for="tipo">Tipo de veículo</label>
-            <select class="form-control" id="tipo" name="tipo" required>
-                <option value="">Selecione um tipo...</option>
-                <?php foreach ($tipos as $tipoKey => $tipoLabel): ?>
-                    <option value="<?php echo htmlspecialchars($tipoKey); ?>"><?php echo htmlspecialchars($tipoLabel); ?></option>
-                <?php endforeach; ?>
-            </select>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Coluna da esquerda: Informações do usuário / menu -->
+        <div class="col-md-3">
+            <?php require_once 'sidebarUsuario.php'; ?>
         </div>
-        <div class="form-group mb-3">
-            <label for="montadora">Montadora</label>
-            <select class="form-control" id="montadora" name="montadora" required>
-                <option value="">Selecione uma montadora...</option>
-            </select>
+        <!-- Coluna da direita: Formulário de cadastro de veículo -->
+        <div class="col-md-9">
+            <h2>Cadastro de Veículo</h2>
+            <form method="POST">
+                <div class="form-group mb-3">
+                    <label for="tipo">Tipo de veículo</label>
+                    <select class="form-control" id="tipo" name="tipo" required>
+                        <option value="">Selecione um tipo...</option>
+                        <?php foreach ($tipos as $tipoKey => $tipoLabel): ?>
+                            <option value="<?php echo htmlspecialchars($tipoKey); ?>"><?php echo htmlspecialchars($tipoLabel); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="montadora">Montadora</label>
+                    <select class="form-control" id="montadora" name="montadora" required>
+                        <option value="">Selecione uma montadora...</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="modelo" class="form-label">Modelo:</label>
+                    <select class="form-control" id="modelo" name="modelo" required>
+                        <option value="">Selecione um modelo...</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="placa" class="form-label">Placa:</label>
+                    <input type="text" name="placa" id="placa" class="form-control" placeholder="ABC-1234" required>
+                </div>
+                <input type="hidden" name="montadora_nome" id="montadora_nome">
+                <input type="hidden" name="modelo_nome" id="modelo_nome">
+                <button type="submit" class="btn btn-outline-success">Cadastrar</button>
+                <a href="/EstacionamentoWebServidor/home" class="btn btn-outline-secondary">Voltar</a>
+            </form>
         </div>
-        <div class="form-group mb-3">
-            <label for="modelo" class="form-label">Modelo:</label>
-            <select class="form-control" id="modelo" name="modelo" required>
-                <option value="">Selecione um modelo...</option>
-            </select>
-        </div>
-        <div class="form-group mb-3">
-            <label for="placa" class="form-label">Placa:</label>
-            <input type="text" name="placa" id="placa" class="form-control" placeholder="ABC-1234" required>
-        </div>
-        <input type="hidden" name="montadora_nome" id="montadora_nome">
-        <input type="hidden" name="modelo_nome" id="modelo_nome">
-        <button type="submit" class="btn btn-outline-success">Cadastrar</button>
-        <a href="/EstacionamentoWebServidor/home" class="btn btn-outline-secondary">Voltar</a>
-    </form>
+    </div>
 </div>
 
 <?php require_once 'modals.php'; ?>
