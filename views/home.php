@@ -16,6 +16,16 @@ require_once 'header.php';
                     <i class="bi bi-file-earmark-excel"></i> Exportar
                 </a>
             </h3>
+            <?php
+            if (!empty($_SESSION['mensagem'])) {
+                echo '<div class="alert alert-success">'.htmlspecialchars($_SESSION['mensagem']).'</div>';
+                unset($_SESSION['mensagem']);
+            }
+            if (!empty($_SESSION['erro'])) {
+                echo '<div class="alert alert-danger">'.htmlspecialchars($_SESSION['erro']).'</div>';
+                unset($_SESSION['erro']);
+            }
+            ?>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -83,7 +93,7 @@ require_once 'header.php';
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
-                <form id="formEditarEstacionamento" method="POST" action="EstacionamentoController.php?acao=editar" autocomplete="off">
+                <form id="formEditarEstacionamento" method="POST" action="/EstacionamentoWebServidor/controllers/EstacionamentoController.php?acao=editar" autocomplete="off">
                     <input type="hidden" name="id" id="editarId">
                     <div class="form-group mb-3">
                         <label for="editarVeiculo">Veículo</label>
@@ -178,7 +188,15 @@ function preencherFormulario(id, veiculoId, local, dataHora, duracao) {
     document.getElementById('editarId').value = id;
     document.getElementById('editarVeiculo').value = veiculoId;
     document.getElementById('editarLocal').value = local;
-    document.getElementById('editarDataHora').value = dataHora;
+
+    // Converter dataHora para formato 'YYYY-MM-DDTHH:MM'
+    let data = new Date(dataHora);
+    if (!isNaN(data.getTime())) {
+        let iso = data.toISOString().slice(0,16);
+        document.getElementById('editarDataHora').value = iso;
+    } else {
+        document.getElementById('editarDataHora').value = dataHora;
+    }
 
     document.querySelectorAll('input[name="duracao"]').forEach(r => r.checked = false);
     if (duracao) {

@@ -1,13 +1,11 @@
 <?php
 error_reporting(E_ALL & ~E_WARNING);
+session_start();
 require_once __DIR__ . '/../models/Veiculo.php';
 require_once __DIR__ . '/../services/FipeService.php';
 
 $usuarioId = $_SESSION['usuario_id'] ?? null;
 $acao = $_GET['acao'] ?? $_POST['acao'] ?? 'cadastrar';
-
-$modalMensagem = '';
-$modalTipo = '';
 
 $fipe = new FipeService();
 $tipos = $fipe->getTipos();
@@ -16,8 +14,7 @@ switch ($acao) {
     case 'excluir':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             Veiculo::excluirPorId((int)$_POST['id']);
-            $modalMensagem = "Veículo excluído com sucesso!";
-            $modalTipo = 'success';
+            $_SESSION['mensagem'] = "Veículo excluído com sucesso!";
         }
         header('Location: /EstacionamentoWebServidor/veiculosCadastrados');
         exit;
@@ -34,17 +31,13 @@ switch ($acao) {
             $veiculo = new Veiculo($usuarioId, $tipo, $montadora, $modelo, $placa, $id);
 
             if (!$veiculo->validarCamposObrigatorios()) {
-                $modalMensagem = "Todos os campos são obrigatórios.";
-                $modalTipo = 'danger';
+                $_SESSION['erro'] = "Todos os campos são obrigatórios.";
             } elseif (!$veiculo->validarPlaca()) {
-                $modalMensagem = "A placa deve estar no formato ABC-1234.";
-                $modalTipo = 'danger';
+                $_SESSION['erro'] = "A placa deve estar no formato ABC-1234.";
             } elseif (!$veiculo->atualizar()) {
-                $modalMensagem = "Erro ao atualizar veículo.";
-                $modalTipo = 'danger';
+                $_SESSION['erro'] = "Erro ao atualizar veículo.";
             } else {
-                $modalMensagem = "Veículo atualizado com sucesso!";
-                $modalTipo = 'success';
+                $_SESSION['mensagem'] = "Veículo atualizado com sucesso!";
             }
         }
         header('Location: /EstacionamentoWebServidor/veiculosCadastrados');
@@ -62,17 +55,13 @@ switch ($acao) {
             $veiculo = new Veiculo($usuarioId, $tipo, $montadora, $modelo, $placa);
 
             if (!$veiculo->validarCamposObrigatorios()) {
-                $modalMensagem = "Todos os campos são obrigatórios.";
-                $modalTipo = 'danger';
+                $_SESSION['erro'] = "Todos os campos são obrigatórios.";
             } elseif (!$veiculo->validarPlaca()) {
-                $modalMensagem = "A placa deve estar no formato ABC-1234.";
-                $modalTipo = 'danger';
+                $_SESSION['erro'] = "A placa deve estar no formato ABC-1234.";
             } elseif (!$veiculo->salvar()) {
-                $modalMensagem = "Erro ao cadastrar veículo. Verifique se a placa já está cadastrada.";
-                $modalTipo = 'danger';
+                $_SESSION['erro'] = "Erro ao cadastrar veículo. Verifique se a placa já está cadastrada.";
             } else {
-                $modalMensagem = "Veículo cadastrado com sucesso!";
-                $modalTipo = 'success';
+                $_SESSION['mensagem'] = "Veículo cadastrado com sucesso!";
             }
         }
         break;

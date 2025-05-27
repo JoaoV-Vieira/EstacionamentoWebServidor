@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/Usuario.php';
+session_start();
 
 $acao = $_GET['acao'] ?? $_POST['acao'] ?? 'cadastrar';
 
@@ -24,13 +25,13 @@ switch ($acao) {
             $id = (int)$_POST['id'];
             $nome = trim($_POST['nome'] ?? '');
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-            $administrador = isset($_POST['administrador']) ? 'S' : 'N';
+            $administrador = $_POST['administrador'] ?? 'N';
 
             if (!$nome || !$email) {
-                $modalMensagem = "Todos os campos são obrigatórios e o email deve ser válido.";
-                $modalTipo = 'danger';
+                $_SESSION['modalMensagem'] = "Todos os campos são obrigatórios e o email deve ser válido.";
+                $_SESSION['modalTipo'] = 'danger';
             } else {
-                $usuario = new Usuario($nome, $email, $id, $administrador);
+                $usuario = new Usuario($nome, $email, null, $administrador, $id);
                 if (!empty($_POST['senha'])) {
                     $usuario->setSenha($_POST['senha']);
                 }

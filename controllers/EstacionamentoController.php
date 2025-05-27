@@ -4,6 +4,7 @@ require_once __DIR__ . '/../config/Conexao.php';
 require_once __DIR__ . '/../models/Estacionamento.php';
 require_once __DIR__ . '/../models/Veiculo.php';
 
+session_start();
 
 $usuarioId = $_SESSION['usuario_id'] ?? null;
 $acao = $_GET['acao'] ?? $_POST['acao'] ?? 'cadastrar';
@@ -30,14 +31,14 @@ switch ($acao) {
             $estacionamento = new Estacionamento($usuarioId, $veiculoId, $local, $dataHora, $duracao, $id);
 
             if (!$estacionamento->validarCamposObrigatorios()) {
-                $erro = "Todos os campos são obrigatórios.";
+                $_SESSION['erro'] = "Todos os campos são obrigatórios.";
             } elseif (!$estacionamento->validarDataHoraFutura()) {
-                $erro = "Não é possível estacionar em datas ou horas passadas.";
+                $_SESSION['erro'] = "Não é possível estacionar em datas ou horas passadas.";
             } else {
                 if ($estacionamento->atualizar()) {
-                    $mensagem = "Estacionamento atualizado com sucesso!";
+                    $_SESSION['mensagem'] = "Estacionamento atualizado com sucesso!";
                 } else {
-                    $erro = "Erro ao atualizar estacionamento.";
+                    $_SESSION['erro'] = "Erro ao atualizar estacionamento.";
                 }
             }
         }

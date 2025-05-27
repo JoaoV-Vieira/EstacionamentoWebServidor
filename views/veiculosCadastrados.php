@@ -15,6 +15,16 @@ $tipos = $fipe->getTipos();
             <?php require_once 'sidebarUsuario.php'; ?>
         </div>
         <div class="col-md-9">
+            <?php
+            if (!empty($_SESSION['mensagem'])) {
+                echo '<div class="alert alert-success">'.htmlspecialchars($_SESSION['mensagem']).'</div>';
+                unset($_SESSION['mensagem']);
+            }
+            if (!empty($_SESSION['erro'])) {
+                echo '<div class="alert alert-danger">'.htmlspecialchars($_SESSION['erro']).'</div>';
+                unset($_SESSION['erro']);
+            }
+            ?>
             <h3 class="d-flex justify-content-between align-items-center">
                 Meus Veículos
                 <a href="/EstacionamentoWebServidor/exportarExcel.php?tipo=veiculos" class="btn btn-outline-success btn-sm">
@@ -159,6 +169,10 @@ function abrirEditarVeiculo(id, tipo, placa, modelo, montadora) {
     editarVeiculoUltimaMontadora = montadora;
     editarVeiculoUltimoModelo = modelo;
 
+    // Preencher campos ocultos
+    document.getElementById('editarMontadoraNome').value = montadora;
+    document.getElementById('editarModeloNome').value = modelo;
+
     var modal = new bootstrap.Modal(document.getElementById('editarVeiculoModal'));
     modal.show();
 
@@ -242,6 +256,12 @@ function abrirExcluirVeiculo(id) {
     var modal = new bootstrap.Modal(document.getElementById('excluirVeiculoModal'));
     modal.show();
 }
+
+document.getElementById('editarPlaca').addEventListener('input', function() {
+    let v = this.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+    if (v.length > 3) v = v.slice(0,3) + '-' + v.slice(3,7);
+    this.value = v;
+});
 </script>
 
 <?php require_once 'footer.php'; ?>
