@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../models/Usuario.php';
+require_once __DIR__ . '/../autoload.php';
 session_start();
 
 $acao = $_GET['acao'] ?? $_POST['acao'] ?? 'cadastrar';

@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL & ~E_WARNING);
-require_once __DIR__ . '/../models/Veiculo.php';
+require_once __DIR__ . '/../autoload.php';
 
 
 $usuarioId = $_SESSION['usuario_id'] ?? null;

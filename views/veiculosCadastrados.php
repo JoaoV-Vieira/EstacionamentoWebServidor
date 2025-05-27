@@ -3,7 +3,6 @@ error_reporting(E_ALL & ~E_WARNING);
 session_start();
 $title = 'Meus Veículos';
 require_once 'header.php';
-require_once __DIR__ . '/../services/FipeService.php';
 
 $fipe = new FipeService();
 $tipos = $fipe->getTipos();

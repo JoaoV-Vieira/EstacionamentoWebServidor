@@ -2,9 +2,7 @@
 error_reporting(E_ALL & ~E_WARNING);
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-require_once __DIR__ . '/../models/Estacionamento.php';
-require_once __DIR__ . '/../models/Veiculo.php';
-require_once __DIR__ . '/../models/Usuario.php';
+require_once __DIR__ . '/../autoload.php';
 
 $tipo = $_GET['tipo'] ?? 'estacionamentos';
 

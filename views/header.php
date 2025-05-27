@@ -13,3 +13,8 @@
     <header>
         <h1 class="titulo-principal">Sistema de Estacionamento</h1>
     </header>
+
+<?php
+require_once __DIR__ . '/../autoload.php';
+// ...restante do código do header...
+?>

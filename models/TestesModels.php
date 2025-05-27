@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../config/Conexao.php'; 
 
 class TestarUsuario {
     public static function consultarUsuario($email, $senha) {

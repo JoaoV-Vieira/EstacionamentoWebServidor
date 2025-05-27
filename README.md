@@ -33,7 +33,7 @@ Este sistema permite:
 - **Processador**: Dual-core ou superior
 - **Memória RAM**: 2 GB ou mais
 - **Armazenamento**: Aproximadamente 100 MB
-- **PHP:** Versão 7.4 ou superior
+- **PHP:** Versão 8.2 ou superior devido à dependencia do PHPSpreadSheets escolhido na versão 4.3
 
 ### 3. Extensões PHP obrigatórias
 - `ext-gd`

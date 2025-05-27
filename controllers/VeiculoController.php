@@ -1,8 +1,7 @@
 <?php
 error_reporting(E_ALL & ~E_WARNING);
 session_start();
-require_once __DIR__ . '/../models/Veiculo.php';
-require_once __DIR__ . '/../services/FipeService.php';
+require_once __DIR__ . '/../autoload.php';
 
 $usuarioId = $_SESSION['usuario_id'] ?? null;
 $acao = $_GET['acao'] ?? $_POST['acao'] ?? 'cadastrar';

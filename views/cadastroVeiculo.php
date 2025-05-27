@@ -1,6 +1,5 @@
 <?php
 error_reporting(E_ALL & ~E_WARNING);
-require_once __DIR__ . '/../services/FipeService.php';
 $title = 'Cadastro de Veículo';
 require_once 'header.php';
 
