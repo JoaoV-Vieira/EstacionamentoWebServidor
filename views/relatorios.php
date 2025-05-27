@@ -66,7 +66,7 @@ $dadosRelatorio = $dadosRelatorio ?? [];
                             <?php elseif ($tipoRelatorioSelecionado === 'veiculos'): ?>
                                 <th>#</th><th>Tipo</th><th>Placa</th><th>Modelo</th><th>Usuário</th>
                             <?php elseif ($tipoRelatorioSelecionado === 'usuarios'): ?>
-                                <th>#</th><th>Nome</th><th>Email</th><th>Administrador</th>
+                                <th>#</th><th>Nome</th><th>Email</th><th>Administrador</th><th>Ações</th>
                             <?php endif; ?>
                         </tr>
                     </thead>
@@ -95,7 +95,9 @@ $dadosRelatorio = $dadosRelatorio ?? [];
                                         <td><?php echo htmlspecialchars($item['email']); ?></td>
                                         <td>
                                             <?php echo $item['administrador'] === 'S' ? 'Sim' : 'Não'; ?>
-                                            <div class="d-flex gap-1 mt-1">
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-1">
                                                 <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal"
                                                     onclick="preencherModalEditarUsuario(
                                                         <?php echo $item['id']; ?>,

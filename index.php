@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $route = $_GET['route'] ?? 'home';
 
-$rotasPublicas = ['login', 'cadastro-usuario'];
+$rotasPublicas = ['login'];
 
 if (!isset($_SESSION['usuario_id']) && !in_array($route, $rotasPublicas)) {
     header('Location: /EstacionamentoWebServidor/login');
