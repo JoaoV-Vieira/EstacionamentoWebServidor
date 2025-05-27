@@ -39,7 +39,7 @@ Este sistema permite:
 - `ext-gd`
 - `ext-zip`
 
-**Se necessário, ative as extensões no arquivo `php.ini`:**
+> **Atenção:** Se aparecer erro sobre extensões como `ext-gd` ou `ext-zip`, ative-as no `php.ini`:
 1. Abra o arquivo `php.ini` (no XAMPP, geralmente em `C:\xampp\php\php.ini`)
 2. Procure pelas linhas:
 ```ini
@@ -47,6 +47,8 @@ Este sistema permite:
 ;extension=zip
 ```
 E remova o `;` do início da linha para descomentá-las.
+
+
 ---
 
 ## ⚙️ Instalação do Ambiente
@@ -61,6 +63,25 @@ E remova o `;` do início da linha para descomentá-las.
 3. Importe o arquivo `iniciarBanco.txt` para criar as tabelas `usuarios`, `veiculos` e `estacionamentos` e inserir dados iniciais:
    - Clique no banco `estacionamento` > Aba **Importar** > Selecione `iniciarBanco.txt`
    - O arquivo iniciarBanco.txt já está programado para popular as tabelas para o usuario "1 - SUP", de forma a testar o funcionamento já de inicio sem a necessidade do cadastro de novos registros
+
+---
+
+## 📦 Dependências via Composer
+
+Este projeto utiliza dependências PHP gerenciadas pelo [Composer](https://getcomposer.org/).
+
+### Instalação das dependências
+
+1. Instale o Composer, se ainda não tiver:  
+   [https://getcomposer.org/download/](https://getcomposer.org/download/)
+
+2. No terminal, dentro da pasta do projeto, execute:
+
+```composer
+composer install
+```
+
+3. Isso criará a pasta `vendor` e instalará todas as dependências necessárias.
 
 ---
 
