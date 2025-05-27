@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL & ~E_WARNING);
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 require_once __DIR__ . '/../models/Estacionamento.php';

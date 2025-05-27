@@ -45,7 +45,6 @@ class Veiculo {
         $stmt->bindParam(':placa', $this->placa);
         return $stmt->execute();
     } catch (PDOException $e) {
-        // Opcional: log do erro, se desejar
         return false;
     }
 }

@@ -180,9 +180,7 @@ function preencherFormulario(id, veiculoId, local, dataHora, duracao) {
     document.getElementById('editarLocal').value = local;
     document.getElementById('editarDataHora').value = dataHora;
 
-    // Limpa seleção dos radios
     document.querySelectorAll('input[name="duracao"]').forEach(r => r.checked = false);
-    // Marca o radio correto
     if (duracao) {
         let radio = document.querySelector('input[name="duracao"][value="' + duracao + '"]');
         if (radio) radio.checked = true;

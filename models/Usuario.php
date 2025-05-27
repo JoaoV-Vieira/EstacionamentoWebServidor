@@ -15,8 +15,8 @@ class Usuario {
         $this->senhaHash = $senha;
         $this->administrador = $administrador;
     }
-
-    // Getters e Setters
+    
+    
     public function getId() { return $this->id; }
     public function getNome() { return $this->nome; }
     public function getEmail() { return $this->email; }
@@ -26,12 +26,10 @@ class Usuario {
     public function setAdministrador($adm) { $this->administrador = $adm; }
     public function setSenha($senha) { $this->senhaHash = password_hash($senha, PASSWORD_DEFAULT); }
 
-    // Salva o usuário no banco (cadastrar)
     public function salvar() {
         try {
             $conexao = Conexao::getConexao();
 
-            // Verifica se já existe usuário com este email
             $sqlVerificar = 'SELECT id FROM usuarios WHERE email = :email';
             $stmtVerificar = $conexao->prepare($sqlVerificar);
             $stmtVerificar->bindParam(':email', $this->email);
@@ -59,7 +57,6 @@ class Usuario {
         }
     }
 
-    // Autentica e retorna um objeto Usuario ou mensagem de erro
     public static function autenticar($email, $senha) {
         try {
             $sql = "SELECT * FROM usuarios WHERE email = :email";
@@ -96,7 +93,6 @@ class Usuario {
         }
     }
 
-    // Atualiza os dados do usuário
     public function atualizar() {
         try {
             $conexao = Conexao::getConexao();
@@ -118,7 +114,6 @@ class Usuario {
         }
     }
 
-    // Exclui o usuário pelo ID
     public static function excluirPorId($id) {
         try {
             $conexao = Conexao::getConexao();

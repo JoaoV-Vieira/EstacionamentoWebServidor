@@ -42,7 +42,6 @@ $tipos = $fipe->getTipos();
                             <td><?php echo htmlspecialchars($veiculo['modelo']); ?></td>
                             <td>
                                 <?php
-                                    // Se montadora não vier do banco, tente buscar pelo modelo ou exiba vazio
                                     echo isset($veiculo['montadora']) && $veiculo['montadora'] !== '' 
                                         ? htmlspecialchars($veiculo['montadora']) 
                                         : (isset($veiculo['montadora_nome']) ? htmlspecialchars($veiculo['montadora_nome']) : '');
@@ -74,7 +73,7 @@ $tipos = $fipe->getTipos();
         </div>
     </div>
 </div>
-
+ 
 <!-- Modal Editar Veículo -->
 <div class="modal fade" id="editarVeiculoModal" tabindex="-1" aria-labelledby="editarVeiculoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -160,11 +159,9 @@ function abrirEditarVeiculo(id, tipo, placa, modelo, montadora) {
     editarVeiculoUltimaMontadora = montadora;
     editarVeiculoUltimoModelo = modelo;
 
-    // Abre o modal imediatamente
     var modal = new bootstrap.Modal(document.getElementById('editarVeiculoModal'));
     modal.show();
 
-    // Seleciona o tipo e dispara o evento para carregar montadoras
     const tipoSelect = document.getElementById('editarTipo');
     tipoSelect.value = tipo;
     tipoSelect.dispatchEvent(new Event('change'));
@@ -187,7 +184,6 @@ document.getElementById('editarTipo').addEventListener('change', function() {
                     opt.setAttribute('data-nome', marca.nome);
                     montadoraSelect.appendChild(opt);
                 });
-                // Se for edição, seleciona a montadora e dispara o evento
                 if (editarVeiculoUltimaMontadora) {
                     for (let i = 0; i < montadoraSelect.options.length; i++) {
                         if (montadoraSelect.options[i].textContent === editarVeiculoUltimaMontadora) {
@@ -221,13 +217,12 @@ document.getElementById('editarMontadora').addEventListener('change', function()
                         opt.setAttribute('data-nome', mod.nome);
                         modeloSelect.appendChild(opt);
                     });
-                    // Se for edição, seleciona o modelo
                     if (editarVeiculoUltimoModelo) {
                         for (let i = 0; i < modeloSelect.options.length; i++) {
                             if (modeloSelect.options[i].textContent === editarVeiculoUltimoModelo) {
                                 modeloSelect.selectedIndex = i;
                                 document.getElementById('editarModeloNome').value = editarVeiculoUltimoModelo;
-                                editarVeiculoUltimoModelo = ''; // Limpa para não repetir
+                                editarVeiculoUltimoModelo = '';
                                 break;
                             }
                         }

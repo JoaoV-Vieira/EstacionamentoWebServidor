@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL & ~E_WARNING);
 require_once __DIR__ . '/../services/FipeService.php';
 $title = 'Cadastro de Veículo';
 require_once 'header.php';
@@ -9,11 +10,9 @@ $tipos = $fipe->getTipos();
 
 <div class="container mt-5">
     <div class="row">
-        <!-- Coluna da esquerda: Informações do usuário / menu -->
         <div class="col-md-3">
             <?php require_once 'sidebarUsuario.php'; ?>
         </div>
-        <!-- Coluna da direita: Formulário de cadastro de veículo -->
         <div class="col-md-9">
             <h2>Cadastro de Veículo</h2>
             <form method="POST">
@@ -51,7 +50,25 @@ $tipos = $fipe->getTipos();
     </div>
 </div>
 
-<?php require_once 'modals.php'; ?>
+<!-- Modal de Cadastro de Veiculo -->
+<div class="modal fade" id="cadastroVeiculoModal" tabindex="-1" aria-labelledby="cadastroVeiculoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-<?php echo $modalTipo === 'success' ? 'success' : 'danger'; ?>">
+        <h5 class="modal-title text-white" id="cadastroVeiculoModalLabel">
+          <?php echo $modalTipo === 'success' ? 'Sucesso' : 'Erro'; ?>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <?php echo htmlspecialchars($modalMensagem); ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-<?php echo $modalTipo === 'success' ? 'success' : 'danger'; ?>" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php if (!empty($modalMensagem)): ?>
 <script>

@@ -1,6 +1,6 @@
 <?php
+error_reporting(E_ALL & ~E_WARNING);
 require_once __DIR__ . '/../models/Usuario.php';
-session_start();
 
 $erro = '';
 

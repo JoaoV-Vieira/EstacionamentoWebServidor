@@ -1,15 +1,14 @@
 <?php
+error_reporting(E_ALL & ~E_WARNING);
 $title = 'Cadastro de Estacionamento';
 require_once 'header.php';
 ?>
 
 <div class="container mt-5">
     <div class="row">
-        <!-- Coluna da esquerda: Informações do usuário / menu -->
         <div class="col-md-3">
             <?php require_once 'sidebarUsuario.php'; ?>
         </div>
-        <!-- Coluna da direita: Formulário de cadastro de estacionamento -->
         <div class="col-md-9">
             <h3>Cadastrar Estacionamento</h3>
             <form method="POST">
@@ -113,7 +112,31 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php require_once 'modals.php'; ?>
+<!-- Modal de Cadastro de Estacionamento -->
+<div class="modal fade" id="cadastroEstacionamentoModal" tabindex="-1" aria-labelledby="cadastroEstacionamentoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header <?php echo !empty($mensagem) ? 'bg-success' : 'bg-danger'; ?>">
+        <h5 class="modal-title text-white" id="cadastroEstacionamentoModalLabel">
+          <?php echo !empty($mensagem) ? 'Sucesso' : 'Erro'; ?>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <?php
+          if (!empty($mensagem)) {
+              echo htmlspecialchars($mensagem);
+          } elseif (!empty($erro)) {
+              echo htmlspecialchars($erro);
+          }
+        ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
