@@ -1,13 +1,23 @@
-## 🧑‍💻 Autor
-
-Desenvolvido por João Victor Vieira - RA 2200880 UTFPR-PG
-
-# Estacionamento Web Servidor
+# 🚗 Estacionamento Web Servidor
 
 Projeto de sistema web realizado em aula na Universidade Tecnologica Federal do Parana em Ponta Grossa, desenvolvido em PHP com banco de dados MySQL. 
-O projeto consiste em um sistema simples de estacionamento, contendo o cadastro de usuários, veículos e o estacionamento por si só.
+O projeto consiste em um sistema simples de estacionamento, contendo o cadastro de usuários, veículos e o estacionamento.
 
-**Observação**: a tela de login ainda **não está funcionando corretamente**, solução está em andamento.
+---
+
+## 🧑‍💻 Autor
+
+Desenvolvido por João Victor Vieira - RA 2200880 (UTFPR-PG)
+
+---
+
+## 📋 Descrição
+
+Este sistema permite:
+- Cadastro de usuários
+- Cadastro e gerenciamento de veículos
+- Registro e controle de estacionamentos
+- Exportação de dados para Excel
 
 ---
 
@@ -23,7 +33,20 @@ O projeto consiste em um sistema simples de estacionamento, contendo o cadastro 
 - **Processador**: Dual-core ou superior
 - **Memória RAM**: 2 GB ou mais
 - **Armazenamento**: Aproximadamente 100 MB
+- **PHP:** Versão 7.4 ou superior
 
+### 3. Extensões PHP obrigatórias
+- `ext-gd`
+- `ext-zip`
+
+**Se necessário, ative as extensões no arquivo `php.ini`:**
+1. Abra o arquivo `php.ini` (no XAMPP, geralmente em `C:\xampp\php\php.ini`)
+2. Procure pelas linhas:
+```ini
+;extension=gd
+;extension=zip
+```
+E remova o `;` do início da linha para descomentá-las.
 ---
 
 ## ⚙️ Instalação do Ambiente
@@ -37,6 +60,7 @@ O projeto consiste em um sistema simples de estacionamento, contendo o cadastro 
 2. Crie um banco de dados chamado: `estacionamento`
 3. Importe o arquivo `iniciarBanco.txt` para criar a tabela `usuarios` e inserir dados iniciais:
    - Clique no banco `estacionamento` > Aba **Importar** > Selecione `iniciarBanco.txt`
+   - O arquivo iniciarBanco.txt já está programado para popular as tabelas para o usuario 1 - SUP, de forma a testar o funcionamento já de inicio sem a necessidade do cadastro de novos registros
 
 ---
 
@@ -68,22 +92,8 @@ http://localhost/EstacionamentoWebServidor/views/login.php
 
 ---
 
-## 🛠️ Problemas até o momento
+## 🛠️ Melhorias e ajustes necessários
 
-### 🔴 Tela de Login Não Funciona
-> A autenticação ainda **não está funcionando corretamente**. O problema está sendo investigado.
-
-
-### 🔐 Senha Não Funciona
-- Verificando a gravação da senha com hash visto que mesmo passando por um função separada para buscar as informaçoes do usuário ainda não está funcionando.
-
----
-
-## 🔄 Atualizações Futuras
-
-- [ ] Corrigir tela de login
-- [ ] Implementar validações mais completas pelo lado do servidor
-- [ ] Adicionar logs 
-
----
+### 🔴 Alteração por banco de dados
+> As alterações / atualizações de registro do sistema como Usuarios, Veiculos e Estacionamentos ainda **não está funcionando corretamente**. O problema está sendo investigado.
 

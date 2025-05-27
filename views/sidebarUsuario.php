@@ -1,5 +1,5 @@
 <?php
-// Detecta a página atual pela URL
+error_reporting(E_ALL & ~E_WARNING);
 $paginaAtual = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 ?>
 <div class="card">
